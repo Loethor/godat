@@ -1,14 +1,16 @@
 extends Node
-class_name Network
 
-func host(port := 7777):
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(port)
-	multiplayer.multiplayer_peer = peer
-	print("Server started on port", port)
+const PORT := 7777
+const MAX_CLIENTS := 8
 
-func join(ip: String, port := 7777):
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(ip, port)
+func host():
+	var peer := ENetMultiplayerPeer.new()
+	peer.create_server(PORT, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
-	print("Joining", ip)
+	print("Hosting on port", PORT)
+
+func join(ip: String):
+	var peer := ENetMultiplayerPeer.new()
+	peer.create_client(ip, PORT)
+	multiplayer.multiplayer_peer = peer
+	print("Connecting to", ip)

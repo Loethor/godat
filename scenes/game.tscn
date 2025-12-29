@@ -1,11 +1,24 @@
-[gd_scene format=3 uid="uid://05sbscqb6na6"]
+[gd_scene load_steps=5 format=3 uid="uid://05sbscqb6na6"]
 
-[node name="Game" type="Node"]
+[ext_resource type="Script" uid="uid://770xfe6b55x" path="res://scripts/game.gd" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://cigcgjd7wcmf3" path="res://scenes/player.tscn" id="2_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://qs778assfk33" path="res://scenes/level.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://erqtqnbwnokh" path="res://scenes/gui.tscn" id="3_lnu2h"]
 
-[node name="Players" type="Node" parent="."]
+[node name="Game" type="Node2D"]
+script = ExtResource("1_uwrxv")
+player_scene = ExtResource("2_lbhrr")
 
-[node name="Node" type="Node" parent="."]
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Node" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://cigcgjd7wcmf3")
 spawn_path = NodePath("../Players")
+
+[node name="Level" parent="." instance=ExtResource("2_yqjtg")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource("3_lnu2h")]
