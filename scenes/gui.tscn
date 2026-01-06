@@ -45,9 +45,3 @@ text = "Host"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
-
-[node name="StatusLabel" type="Label" parent="CenterContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Idle"
-horizontal_alignment = 1

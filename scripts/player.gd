@@ -8,12 +8,7 @@ class_name Player
 func _enter_tree():
 	# Set authority during _enter_tree
 	var peer_id = int(name)
-	set_multiplayer_authority(peer_id)
-
-	# Set authority on MultiplayerSynchronizer if it exists
-	var sync = get_node_or_null("MultiplayerSynchronizer")
-	if sync:
-		sync.set_multiplayer_authority(peer_id)
+	set_multiplayer_authority(peer_id, true)
 
 func _physics_process(delta):
 	# Apply gravity

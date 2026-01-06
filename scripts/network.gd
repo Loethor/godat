@@ -19,4 +19,3 @@ func join(ip: String):
 	multiplayer.multiplayer_peer = peer
 	print("Connecting to", ip)
 	client_created.emit()
-	client_created.emit()
