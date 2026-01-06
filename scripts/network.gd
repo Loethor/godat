@@ -1,6 +1,6 @@
 extends Node
 
-const PORT := 7777
+const PORT := 6784
 const MAX_CLIENTS := 8
 
 signal server_created
