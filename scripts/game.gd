@@ -3,11 +3,15 @@ extends Node
 @onready var players := $Players
 
 @export var player_scene: PackedScene
-@export var spawn_positions: Array[Vector2] = [Vector2(100, 300), Vector2(300, 300), Vector2(500, 300), Vector2(700, 300)]
+@onready var level: Node2D = $Level
 
 var spawn_index := 0
+var spawn_positions: Array[Vector2]
 
 func _ready():
+	# Get spawn positions from the level
+	spawn_positions = level.spawn_positions
+
 	# Connect multiplayer signals
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
@@ -22,13 +26,13 @@ func _on_server_created():
 	_spawn_player(multiplayer.get_unique_id())
 
 func _on_peer_connected(peer_id: int):
-	print("Peer connected:", peer_id)
+	print("Peer connected: ", peer_id)
 	if not multiplayer.is_server(): return
 	# Server spawns player for new peer
 	_spawn_player(peer_id)
 
 func _on_connected_to_server():
-	print("Connected to server as peer:", multiplayer.get_unique_id())
+	print("Connected to server as client: ", multiplayer.get_unique_id())
 
 func _spawn_player(peer_id: int):
 	var player := player_scene.instantiate()
@@ -46,11 +50,11 @@ func _spawn_player(peer_id: int):
 	player.position = spawn_pos
 
 	players.add_child(player)
-	print("Spawned player for peer:", peer_id, "at", spawn_pos)
+	print("Spawned player for peer: ", peer_id, " at ", spawn_pos)
 
 func _on_peer_disconnected(peer_id: int):
 	if not multiplayer.is_server(): return
-	print("Peer disconnected:", peer_id)
+	print("Peer disconnected: ", peer_id)
 
 	var player_node = players.get_node_or_null(str(peer_id))
 	if player_node:
