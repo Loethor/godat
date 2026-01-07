@@ -15,8 +15,5 @@ func _on_host_pressed():
 
 func _on_join_pressed():
 	var ip := ip_line_edit.text.strip_edges()
-	if ip.is_empty():
-		ip = "127.0.0.1"
-
 	Network.join(ip)
 	hide()
